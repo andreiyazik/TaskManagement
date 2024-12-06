@@ -9,11 +9,6 @@ This project consists of two parts:
 
 ## Backend (ASP.NET Core)
 
-### Features
-- CRUD operations for tasks.
-- Exception handling middleware for standardized error responses.
-- CORS enabled for communication with the Angular frontend.
-
 ### API Endpoints
 
 | Method | Endpoint             | Description                       |
@@ -21,15 +16,6 @@ This project consists of two parts:
 | POST   | `/Tasks`             | Creates a new task.              |
 | GET    | `/Tasks`             | Retrieves a paginated list of tasks. |
 | PUT    | `/Tasks/{id}/status` | Updates the status of a task.    |
-
-### Error Handling
-The API includes a middleware to catch unhandled exceptions and return a consistent error response:
-```json
-{
-  "Message": "An error occurred while processing your request.",
-  "Details": "Detailed error message (in development mode)."
-}
-```
 
 ### Setting Up the Backend
 1. Clone the repository.
@@ -51,8 +37,6 @@ The API includes a middleware to catch unhandled exceptions and return a consist
 ### Features
 - Task list with pagination.
 - Task creation form with validation.
-- Centralized navigation between the task list and task creation form.
-- Exception handling for failed API calls.
 
 ### Structure
 
@@ -92,12 +76,3 @@ src/
 
 ### Backend Integration
 The Angular application fetches the backend base URL from environment files.
-
-#### Environment Configuration
-**src/environments/environment.ts**
-```typescript
-export const environment = {
-  production: false,
-  backendBaseUrl: 'https://localhost:7077',
-};
-```
