@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using TaskManagement.API.Middleware;
 using TaskManagement.Application.Handlers;
 using TaskManagement.Application.Integrations;
 using TaskManagement.Application.Repositories;
@@ -29,8 +30,11 @@ AddSwagger(builder);
 AddAutoMapper(builder);
 AddServices(builder);
 AddServiceBus(builder);
+AddCors(builder);
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,6 +49,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowSpecificOrigins");
 
 app.Run();
 
@@ -88,5 +94,18 @@ static void AddAutoMapper(WebApplicationBuilder builder)
     builder.Services.AddAutoMapper(config =>
     {
         config.AddProfile<TasksProfile>();
+    });
+}
+
+static void AddCors(WebApplicationBuilder builder)
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigins", policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
     });
 }

@@ -1,0 +1,28 @@
+<form (ngSubmit)="createTask()" class="task-form">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Task Name</mat-label>
+      <input matInput [(ngModel)]="taskInfo.name" name="name" required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="taskInfo.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Assigned To</mat-label>
+      <input matInput [(ngModel)]="taskInfo.assignedTo" name="assignedTo" />
+    </mat-form-field>
+  
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Create Task</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancelForm()">
+        Cancel
+      </button>
+    </div>
+  </form>
+  
